@@ -4,7 +4,7 @@ from utils.constants import page_title, web_description, \
 
 show_pages(
     [
-        Page("app.py", page_title, "🤘"),
+        Page("app.py", page_title),
 
         Section(name="COVID-19", icon=":microbe:"),
         Page("pages/covid_1.py", covid_page_names["covid_1"], icon=":jigsaw:"),

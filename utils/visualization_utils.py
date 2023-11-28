@@ -39,7 +39,7 @@ def univariate_distribution(file_name):
         	</style>
         """, unsafe_allow_html=True)
 
-    st.header("Univariate Distribution")
+    st.header("Univariate Visualization")
     col_select = st.selectbox("Univariate Distribution", cols, label_visibility="collapsed")
 
     fig = px.histogram(df, x=col_select)
@@ -50,7 +50,7 @@ def multivariate_distribution(file_name):
     df = read_df(file_name)
     cols = read_cols(df)
 
-    st.header("Multivariate Distribution")
+    st.header("Multivariate Visualization")
     col_select1 = st.selectbox('Select the first variable (x)', cols, index=3)
     col_select2 = st.selectbox('Select the second variable (y)', cols, index=4)
     col_select3 = st.selectbox('(Optional) Select the third variable', cols, index=None,

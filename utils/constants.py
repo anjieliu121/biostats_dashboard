@@ -2,7 +2,7 @@ ut_colors = {
     "burnt_orange": "#bf5700"
 }
 # web page title
-page_title = "Bioinformatics Database"
+page_title = "Meyers Database"
 # table of contents
 overview_tabs = [
     "Overview",
