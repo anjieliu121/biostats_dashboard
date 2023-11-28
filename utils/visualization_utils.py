@@ -2,7 +2,7 @@ import streamlit as st
 import numpy as np
 import pandas as pd
 import plotly.express as px
-from biostats_dashboard.utils.constants import fig_height, title_fontsize, tick_fontsize
+from utils.constants import fig_height, title_fontsize, tick_fontsize
 
 
 def display_source(url):

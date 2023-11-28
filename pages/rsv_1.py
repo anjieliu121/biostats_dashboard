@@ -1,7 +1,7 @@
 from st_pages import add_page_title
-from biostats_dashboard.utils.constants import rsv_file_names, rsv_page_names, rsv_descriptions, rsv_url
-from biostats_dashboard.utils.css_utils import display_data_description, display_download_button
-from biostats_dashboard.utils.visualization_utils import univariate_distribution, multivariate_distribution, display_dataset, display_source
+from utils.constants import rsv_file_names, rsv_page_names, rsv_descriptions, rsv_url
+from utils.css_utils import display_data_description, display_download_button
+from utils.visualization_utils import univariate_distribution, multivariate_distribution, display_dataset, display_source
 
 key = "rsv_1"
 file_name = rsv_file_names[key]

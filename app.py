@@ -1,5 +1,5 @@
 from st_pages import Page, Section, add_page_title, show_pages
-from biostats_dashboard.utils.constants import page_title, web_description, \
+from utils.constants import page_title, web_description, \
     covid_page_names, flu_page_names, rsv_page_names
 
 show_pages(
