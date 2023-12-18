@@ -10,10 +10,11 @@ from utils.constants import covid_file_names, covid_descriptions, covid_url, sta
 def dispaly_page(key, date):
     file_name = covid_file_names[key]
     display_data_description(covid_descriptions[key])
+    display_source(covid_url[key])
     display_download_button(file_name, date)
     notes = "Each row has a unique state and date value pair."
     display_dataset(file_name, notes)
-    display_source(covid_url[key])
+
 
 
 def visualization(file_name):
