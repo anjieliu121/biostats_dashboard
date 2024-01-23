@@ -3,9 +3,13 @@ import plotly.express as px
 import pandas as pd
 import datetime
 import io
-from utils.css_utils import display_data_description, display_download_button, selection_box, markdown_background, multiselect_css
-from utils.visualization_utils import display_dataset, display_source, read_df, display_plotly_chart, download_fig
+from utils.css_utils import display_download_button, selection_box, markdown_background, \
+    multiselect_css
+from utils.visualization_utils import display_dataset, read_df, display_plotly_chart, download_fig
+from utils.text_utils import display_data_description, display_source
+
 from utils.constants import covid_file_names, covid_descriptions, covid_url, state_abbr_full, covid_1_description
+
 
 def dispaly_page(key, date):
     file_name = covid_file_names[key]
@@ -16,12 +20,12 @@ def dispaly_page(key, date):
     display_dataset(file_name, notes)
 
 
-
+#@st.cache_data(ttl=24 * 3600)
 def visualization(file_name):
     # header
     st.header("Interactive Multivariate Visualization")
     # warning
-    st.warning('Minimize the sidebar to the left by clicking \'X\' for the best plot view.', icon="⚠️")
+    st.warning('Minimize the sidebar to the left by clicking \'×\' for the best plot view.', icon="⚠️")
     # plot options
     graph_options = ["Colored Scatter Plot", "Multi-Line Plot"]
     graph_select = selection_box('Select Plot Option', graph_options, index=0)
@@ -36,7 +40,8 @@ def visualization(file_name):
     # create state selection box
     states = sorted(df['state_fullname'].unique())
     index_Texas = states.index('Texas')
-    states_select = selection_box('Select State/Federal district/Inhabited territories in the U.S.', states, index=index_Texas)
+    states_select = selection_box('Select State/Federal district/Inhabited territories in the U.S.', states,
+                                  index=index_Texas)
     df_temp = df[df['state_fullname'] == states_select]
 
     # date range
@@ -53,11 +58,11 @@ def visualization(file_name):
             plot_scatterplot(df_temp, variables, states_select, title)
         elif graph_select == graph_options[1]:
             plot_lineplot(df_temp, variables, states_select, title)
+        # show and download filtered data
+        display_filtered_data(df_temp)
+        download_filtered_data(df_temp, title, file_name)
     else:
         st.error('Error: End date must fall after start date.')
-
-
-
 
 
 def plot_scatterplot(df, variables, states_select, title):
@@ -69,7 +74,7 @@ def plot_scatterplot(df, variables, states_select, title):
     color_variables = [item for item in variables if item != y_select]
     color_variables = ['None'] + color_variables
     c_select = selection_box('(Optional) Select another variable to compare with the selected y variable',
-                             color_variables, index=3)
+                             color_variables, index=0)
 
     if c_select != "None":
         c_description = covid_1_description[c_select]
@@ -78,7 +83,15 @@ def plot_scatterplot(df, variables, states_select, title):
         fig = px.scatter(df, x='date', y=y_select, color=c_select, color_continuous_scale="reds", title=title)
     else:
         # plot
-        fig = px.scatter(df, x='date', y=y_select)
+        fig = px.scatter(df, x='date', y=y_select, title=title)
+    fig.update_layout(
+        title={
+            'text': title,
+            'y': 0.95,
+            'x': 0.35,
+            'xanchor': 'center',
+            'yanchor': 'top'},
+    )
     fig = display_plotly_chart(fig)
     # download fig
     title = f"{title}-{y_select}-{c_select}"
@@ -129,3 +142,25 @@ def plot_lineplot(df, variables, states_select, title):
         # download fig
         title = f"{title}-{'-'.join(options)}"
         download_fig(fig, title)
+
+
+def display_filtered_data(df):
+    st.header("Quick Glance at the Filtered Data")
+    st.dataframe(df, use_container_width=True)
+
+
+#@st.cache_data
+def convert_df(df):
+    return df.to_csv(index=False).encode('utf-8')
+
+
+def download_filtered_data(df, title, file_name):
+    csv = convert_df(df)
+
+    st.download_button(
+        "Download Filtered Data",
+        csv,
+        f"{title}_{file_name}",
+        "text/csv",
+        key='download-csv'
+    )

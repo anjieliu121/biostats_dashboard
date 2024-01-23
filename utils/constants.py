@@ -1,7 +1,3 @@
-ut_colors = {
-    "burnt_orange": "#bf5700"
-}
-
 ########################################################################################################################
 #                                              starter page info                                                       #
 ########################################################################################################################
@@ -36,7 +32,9 @@ data_names = {
          "1-sentence description",
          "longer description"],
 }
-
+########################################################################################################################
+#                                              COVID                                                                   #
+########################################################################################################################
 covid_file_names = {
     "covid_1": "COVID-19_Reported_Patient_Impact_and_Hospital_Capacity_by_State_Timeseries__RAW_.csv"
 }
@@ -51,99 +49,8 @@ covid_url = {
 }
 
 covid_descriptions = {
-    "covid_1": "The following dataset provides state-aggregated data for hospital utilization in a timeseries format dating back to January 1, 2020. These are derived from reports with facility-level granularity across three main sources: (1) HHS TeleTracking, (2) reporting provided directly to HHS Protect by state/territorial health departments on behalf of their healthcare facilities and (3) National Healthcare Safety Network (before July 15). Check the source link for the most updated dataset."
+    "covid_1": "This dataset provides state-aggregated data for __hospital utilization__ in a timeseries format dating back to January 1, 2020. These are derived from reports with facility-level granularity across three main sources: (1) HHS TeleTracking, (2) reporting provided directly to HHS Protect by state/territorial health departments on behalf of their healthcare facilities and (3) National Healthcare Safety Network (before July 15)."
 }
-
-flu_file_names = {
-    "flu_1": "Age_Specific_Coverage_Flu_RD4_2023_24_Sc_A_B_C_D_E_F.csv"
-}
-
-flu_page_names = {
-    "flu_1": "Age Specific Coverage Flu RD4 2023-24"
-}
-
-flu_descriptions = {
-    "flu_1": "longer description"
-}
-
-rsv_file_names = {
-    "rsv_1": "Weekly_Rates_of_Laboratory-Confirmed_RSV_Hospitalizations_from_the_RSV-NET_Surveillance_System_22_24_overall.csv",
-    "rsv_2": "Weekly_Rates_of_Laboratory-Confirmed_RSV_Hospitalizations_from_the_RSV-NET_Surveillance_System_22_24.csv"
-}
-
-rsv_page_names = {
-    "rsv_1": "Weekly Rates of Laboratory Confirmed RSV Hospitalizations from the RSV-NET Surveillance System 2022-24 Overall",
-    "rsv_2": "Weekly Rates of Laboratory Confirmed RSV Hospitalizations from the RSV-NET Surveillance System 2022-24"
-}
-
-rsv_url = {
-    "rsv_1": "https://data.cdc.gov/Public-Health-Surveillance/Weekly-Rates-of-Laboratory-Confirmed-RSV-Hospitali/29hc-w46k"
-}
-
-rsv_descriptions = {
-    "rsv_1": "The Respiratory Syncytial Virus Hospitalization Surveillance Network (RSV-NET) is a network that conducts active, population-based surveillance for laboratory-confirmed RSV-associated hospitalizations in children younger than 18 years of age and adults. The network currently includes 58 counties in 12 states, and data are collected and reported during the October 1-April 30 season each year. In some years, additional months of data are collected. In adults, RSV hospitalization tracking began in the 2016–2017 season. In children less than 18 years of age, surveillance began in the 2018–19 season. Because the surveillance areas and age groups included in surveillance have changed over time, trends should be interpreted with caution. Hospitalization data are preliminary and subject to change as more data become available. In particular, case counts and rates for recent hospitalizations are subject to lag. Lag for RSV-NET case identification and reporting might increase around holidays or during periods of increased hospitalization utilization. Check the source link for the most updated dataset.",
-    "rsv_2": "longer description"
-}
-
-fig_height = 800
-title_fontsize = 40
-tick_fontsize = 20
-
-# state - abbreviation : full name
-state_abbr_full = {'AL': 'Alabama',
- 'AK': 'Alaska',
- 'AS': 'American Samoa',
- 'AZ': 'Arizona',
- 'AR': 'Arkansas',
- 'CA': 'California',
- 'CO': 'Colorado',
- 'CT': 'Connecticut',
- 'DE': 'Delaware',
- 'DC': 'District of Columbia',
- 'FL': 'Florida',
- 'GA': 'Georgia',
- 'HI': 'Hawaii',
- 'ID': 'Idaho',
- 'IL': 'Illinois',
- 'IN': 'Indiana',
- 'IA': 'Iowa',
- 'KS': 'Kansas',
- 'KY': 'Kentucky',
- 'LA': 'Louisiana',
- 'ME': 'Maine',
- 'MD': 'Maryland',
- 'MA': 'Massachusetts',
- 'MI': 'Michigan',
- 'MN': 'Minnesota',
- 'MS': 'Mississippi',
- 'MO': 'Missouri',
- 'MT': 'Montana',
- 'NE': 'Nebraska',
- 'NV': 'Nevada',
- 'NH': 'New Hampshire',
- 'NJ': 'New Jersey',
- 'NM': 'New Mexico',
- 'NY': 'New York',
- 'NC': 'North Carolina',
- 'ND': 'North Dakota',
- 'OH': 'Ohio',
- 'OK': 'Oklahoma',
- 'OR': 'Oregon',
- 'PA': 'Pennsylvania',
- 'RI': 'Rhode Island',
- 'SC': 'South Carolina',
- 'SD': 'South Dakota',
- 'TN': 'Tennessee',
- 'TX': 'Texas',
- 'UT': 'Utah',
- 'VT': 'Vermont',
- 'VA': 'Virginia',
- 'WA': 'Washington',
- 'WV': 'West Virginia',
- 'WI': 'Wisconsin',
- 'WY': 'Wyoming',
- 'PR': 'Puerto Rico',
- 'VI': 'U.S. Virgin Islands'}
 
 covid_1_description = {
     'critical_staffing_shortage_today_yes': 'Number of hospitals reporting a critical staffing shortage today in this state.',
@@ -280,16 +187,111 @@ covid_1_description = {
     'total_staffed_pediatric_icu_beds': 'Total number of pediatric ICU beds in the facility that are currently set-up, staffed and are or could be used for a patient within the reporting period. This count includes occupied and unoccupied ICU beds, including any ICU beds that are, or could be, staffed and used for a pediatric patient. This count excludes NICU, newborn nursery, and outpatient surgery beds. This is a subset of #3c and #5a. Any beds counted in #5c should NOT be counted in #5b. This field is required as of 2/2/2022. Note: All pediatric ICU beds should be considered, regardless of the unit on which the bed is housed. This includes ICU beds located in non-ICU locations, such as mixed acuity units.',
     'total_staffed_pediatric_icu_beds_coverage': 'Total number of pediatric ICU beds in the facility that are currently set-up, staffed and are or could be used for a patient within the reporting period (coverage). This count includes occupied and unoccupied ICU beds, including any ICU beds that are, or could be, staffed and used for a pediatric patient. This count excludes NICU, newborn nursery, and outpatient surgery beds. This is a subset of #3c and #5a. Any beds counted in #5c should NOT be counted in #5b. This field is required as of 2/2/2022. Note: All pediatric ICU beds should be considered, regardless of the unit on which the bed is housed. This includes ICU beds located in non-ICU locations, such as mixed acuity units.'
 }
+########################################################################################################################
+#                                              FLU                                                                   #
+########################################################################################################################
 
-#### unused ####
-# table of contents
-overview_tabs = [
-    "Overview",
-    # "🦈",
-    "Data",
-    # "A long loooooong tab",
-    # "🎨",
-    # "x²"
-]
-# whitespace between tabs
-whitespace = 9
+flu_file_names = {
+    "flu_1": "Age_Specific_Coverage_Flu_RD4_2023_24_Sc_A_B_C_D_E_F.csv"
+}
+
+flu_page_names = {
+    "flu_1": "Age Specific Coverage Flu RD4 2023-24"
+}
+
+flu_url = {
+    "flu_1": "https://github.com/midas-network/flu-scenario-modeling-hub_resources/blob/main/Rd4_datasets/Age_Specific_Coverage_Flu_RD4_2023_24_Sc_A_B_C_D_E_F.csv"
+}
+
+flu_descriptions = {
+    "flu_1": "This provides weekly state-level coverage for age groups: 0-4yr, 5-12yr, 13-17yr, 0-17yr, 18-49yr, 50-64yr, 65+yr."
+}
+########################################################################################################################
+#                                              rsv                                                                   #
+########################################################################################################################
+
+rsv_file_names = {
+    "rsv_1": "Weekly_Rates_of_Laboratory-Confirmed_RSV_Hospitalizations_from_the_RSV-NET_Surveillance_System_22_24_overall.csv",
+    "rsv_2": "Weekly_Rates_of_Laboratory-Confirmed_RSV_Hospitalizations_from_the_RSV-NET_Surveillance_System_22_24.csv"
+}
+
+rsv_page_names = {
+    "rsv_1": "Weekly Rates of Laboratory Confirmed RSV Hospitalizations from the RSV-NET Surveillance System 2022-24 Overall",
+    "rsv_2": "Weekly Rates of Laboratory Confirmed RSV Hospitalizations from the RSV-NET Surveillance System 2022-24"
+}
+
+rsv_url = {
+    "rsv_1": "https://data.cdc.gov/Public-Health-Surveillance/Weekly-Rates-of-Laboratory-Confirmed-RSV-Hospitali/29hc-w46k"
+}
+
+rsv_descriptions = {
+    "rsv_1": "The Respiratory Syncytial Virus Hospitalization Surveillance Network (RSV-NET) is a network that conducts active, population-based surveillance for laboratory-confirmed RSV-associated hospitalizations in children younger than 18 years of age and adults. The network currently includes 58 counties in 12 states, and data are collected and reported during the October 1-April 30 season each year. In some years, additional months of data are collected. In adults, RSV hospitalization tracking began in the 2016–2017 season. In children less than 18 years of age, surveillance began in the 2018–19 season. Because the surveillance areas and age groups included in surveillance have changed over time, trends should be interpreted with caution. Hospitalization data are preliminary and subject to change as more data become available. In particular, case counts and rates for recent hospitalizations are subject to lag. Lag for RSV-NET case identification and reporting might increase around holidays or during periods of increased hospitalization utilization. Check the source link for the most updated dataset.",
+    "rsv_2": ""
+}
+########################################################################################################################
+#                                              PLOT                                                                   #
+########################################################################################################################
+
+fig_height = 800
+title_fontsize = 40
+tick_fontsize = 20
+
+# state - abbreviation : full name
+state_abbr_full = {'AL': 'Alabama',
+ 'AK': 'Alaska',
+ 'AS': 'American Samoa',
+ 'AZ': 'Arizona',
+ 'AR': 'Arkansas',
+ 'CA': 'California',
+ 'CO': 'Colorado',
+ 'CT': 'Connecticut',
+ 'DE': 'Delaware',
+ 'DC': 'District of Columbia',
+ 'FL': 'Florida',
+ 'GA': 'Georgia',
+ 'HI': 'Hawaii',
+ 'ID': 'Idaho',
+ 'IL': 'Illinois',
+ 'IN': 'Indiana',
+ 'IA': 'Iowa',
+ 'KS': 'Kansas',
+ 'KY': 'Kentucky',
+ 'LA': 'Louisiana',
+ 'ME': 'Maine',
+ 'MD': 'Maryland',
+ 'MA': 'Massachusetts',
+ 'MI': 'Michigan',
+ 'MN': 'Minnesota',
+ 'MS': 'Mississippi',
+ 'MO': 'Missouri',
+ 'MT': 'Montana',
+ 'NE': 'Nebraska',
+ 'NV': 'Nevada',
+ 'NH': 'New Hampshire',
+ 'NJ': 'New Jersey',
+ 'NM': 'New Mexico',
+ 'NY': 'New York',
+ 'NC': 'North Carolina',
+ 'ND': 'North Dakota',
+ 'OH': 'Ohio',
+ 'OK': 'Oklahoma',
+ 'OR': 'Oregon',
+ 'PA': 'Pennsylvania',
+ 'RI': 'Rhode Island',
+ 'SC': 'South Carolina',
+ 'SD': 'South Dakota',
+ 'TN': 'Tennessee',
+ 'TX': 'Texas',
+ 'UT': 'Utah',
+ 'VT': 'Vermont',
+ 'VA': 'Virginia',
+ 'WA': 'Washington',
+ 'WV': 'West Virginia',
+ 'WI': 'Wisconsin',
+ 'WY': 'Wyoming',
+ 'PR': 'Puerto Rico',
+ 'VI': 'U.S. Virgin Islands'}
+
+
+
+

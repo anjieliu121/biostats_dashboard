@@ -6,19 +6,22 @@ from utils.constants import fig_height, title_fontsize, tick_fontsize
 from utils.css_utils import markdown_background
 import io
 
-def display_source(url):
-    # components.iframe(link)
-    st.markdown("Source: [link](%s)" % url)
-
-
+@st.cache_data(ttl=24 * 3600)
 def read_df(file_name):
     df = pd.read_csv(f"data/{file_name}")
     return df
 
-
+@st.cache_data(ttl=24 * 3600)
 def read_cols(df):
     cols = np.array(df.columns)
     return cols
+
+def display_dataset(file_name, notes=None):
+    df = read_df(file_name)
+    st.header("Quick Glance at the Raw Data")
+    st.dataframe(df, use_container_width=True, height=265)
+    if notes is not None:
+        st.caption(f"Note: {notes}")
 
 
 def display_plotly_chart(fig, fig_height=fig_height, title_fontsize=title_fontsize, tick_fontsize=tick_fontsize):
@@ -65,12 +68,7 @@ def multivariate_distribution(file_name):
     display_plotly_chart(fig)
 
 
-def display_dataset(file_name, notes=None):
-    df = read_df(file_name)
-    st.header("Quick Glance at the Raw Data")
-    st.dataframe(df, use_container_width=True)
-    if notes is not None:
-        markdown_background(f"Note: {notes}")
+
 
 
 def download_fig(fig, title):
