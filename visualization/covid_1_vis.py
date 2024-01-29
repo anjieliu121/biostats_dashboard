@@ -1,48 +1,34 @@
 import streamlit as st
 import plotly.express as px
 import pandas as pd
-import datetime
-import io
-from utils.css_utils import display_download_button, selection_box, markdown_background, \
+
+from utils.css_utils import selection_box, markdown_background, \
     multiselect_css
-from utils.visualization_utils import display_dataset, read_df, display_plotly_chart, download_fig
-from utils.text_utils import display_data_description, display_source
+from utils.data_visual import plot_header, display_plotly_chart, download_fig
 
-from utils.constants import covid_file_names, covid_descriptions, covid_url, state_abbr_full, covid_1_description
+from utils.constants import graph_options, covid_1_description
+from utils.data_io import read_df, read_cols, subset_df, subset_df_date, customize_df_covid1
 
 
-def dispaly_page(key, date):
-    file_name = covid_file_names[key]
-    display_data_description(covid_descriptions[key])
-    display_source(covid_url[key])
-    display_download_button(file_name, date)
-    notes = "Each row has a unique state and date value pair."
-    display_dataset(file_name, notes)
 
 
 #@st.cache_data(ttl=24 * 3600)
 def visualization(file_name):
-    # header
-    st.header("Interactive Multivariate Visualization")
-    # warning
-    st.warning('Minimize the sidebar to the left by clicking \'×\' for the best plot view.', icon="⚠️")
-    # plot options
-    graph_options = ["Colored Scatter Plot", "Multi-Line Plot"]
-    graph_select = selection_box('Select Plot Option', graph_options, index=0)
-
+    graph_select = plot_header()
     # import dataset
     df = read_df(file_name)
-    df['state_fullname'] = [state_abbr_full[s] for s in df['state']]
-    df['date'] = pd.to_datetime(df['date'], format='%Y/%m/%d')
-    df = df.sort_values(by=['state', 'date'])
-    variables = df.columns[2:-2]
+    df = customize_df_covid1(df)
+    cols = read_cols(df)
+
+    # x variables
+    variables = cols[2:-2]
 
     # create state selection box
     states = sorted(df['state_fullname'].unique())
     index_Texas = states.index('Texas')
     states_select = selection_box('Select State/Federal district/Inhabited territories in the U.S.', states,
                                   index=index_Texas)
-    df_temp = df[df['state_fullname'] == states_select]
+    df_temp = subset_df(df, "state_fullname", states_select)
 
     # date range
     start = min(df_temp['date'])
@@ -51,7 +37,7 @@ def visualization(file_name):
     end_date = st.date_input('End date', end, min_value=start, max_value=end)
     if start_date < end_date:
         start_date, end_date = pd.Timestamp(start_date), pd.Timestamp(end_date)
-        df_temp = df_temp[df_temp['date'].between(start_date, end_date)]
+        df_temp = subset_df_date(df_temp, "date", start_date, end_date)
         # title
         title = f"{states_select} from {start_date.date()} to {end_date.date()}"
         if graph_select == graph_options[0]:
@@ -101,7 +87,7 @@ def plot_scatterplot(df, variables, states_select, title):
 def plot_lineplot(df, variables, states_select, title):
     linewidth = 1
     # a list of selected options
-    options = multiselect_css('Select multiple variables to compare', variables)
+    options = multiselect_css('Select multiple variables to compare', variables, variables[0], variables[3])
     # variable descriptions
     for i in options:
         y_description = covid_1_description[i]

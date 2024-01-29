@@ -7,36 +7,16 @@ page_title = "Meyers Database"
 web_description = "Meyers Database portal provides description and interactive visualization of data used in \
                    scenario hub, forecast or other scientific projects."
 
+########################################################################################################################
+#                                              PLOT                                                                    #
+########################################################################################################################
+graph_options = ["Timeseries Plot", "Multi-Line Plot"]
 
-# data name
-# file name : [tab name, readable header]
-data_names = {
-    "COVID-19_Reported_Patient_Impact_and_Hospital_Capacity_by_State_Timeseries__RAW_.csv":
-        ["COVID-19",
-         "COVID-19 Reported Patient Impact and Hospital Capacity by State Timeseries",
-         "1-sentence description",
-         "longer description"],
-    "Age_Specific_Coverage_Flu_RD4_2023_24_Sc_A_B_C_D_E_F.csv":
-        ["Flu",
-         "Age Specific Coverage Flu RD4 2023-24",
-         "1-sentence description",
-         "longer description"],
-    "Weekly_Rates_of_Laboratory-Confirmed_RSV_Hospitalizations_from_the_RSV-NET_Surveillance_System_22_24_overall.csv":
-        ["RSV Overall",
-         "Weekly Rates of Laboratory Confirmed RSV Hospitalizations from the RSV-NET Surveillance System 2022-24 Overall",
-         "1-sentence description",
-         "longer description"],
-    "Weekly_Rates_of_Laboratory-Confirmed_RSV_Hospitalizations_from_the_RSV-NET_Surveillance_System_22_24.csv":
-        ["RSV",
-         "Weekly Rates of Laboratory Confirmed RSV Hospitalizations from the RSV-NET Surveillance System 2022-24",
-         "1-sentence description",
-         "longer description"],
-}
 ########################################################################################################################
 #                                              COVID                                                                   #
 ########################################################################################################################
 covid_file_names = {
-    "covid_1": "COVID-19_Reported_Patient_Impact_and_Hospital_Capacity_by_State_Timeseries__RAW_.csv"
+    "covid_1": "COVID-19_Reported_Patient_Impact_and_Hospital_Capacity_by_State_Timeseries__RAW.csv"
 }
 
 covid_page_names = {
@@ -49,7 +29,7 @@ covid_url = {
 }
 
 covid_descriptions = {
-    "covid_1": "This dataset provides state-aggregated data for __hospital utilization__ in a timeseries format dating back to January 1, 2020. These are derived from reports with facility-level granularity across three main sources: (1) HHS TeleTracking, (2) reporting provided directly to HHS Protect by state/territorial health departments on behalf of their healthcare facilities and (3) National Healthcare Safety Network (before July 15)."
+    "covid_1": "This dataset provides state-aggregated data for __hospital utilization__ in a timeseries format dating back to _January 1, 2020_. These are derived from reports with facility-level granularity across three main sources: (1) HHS TeleTracking, (2) reporting provided directly to HHS Protect by state/territorial health departments on behalf of their healthcare facilities and (3) National Healthcare Safety Network (before July 15). After _Friday September 29th, 2023_, as a result of changes in reporting cadence, this dataset will be updated twice a week on Wednesdays and Fridays."
 }
 
 covid_1_description = {
@@ -204,7 +184,7 @@ flu_url = {
 }
 
 flu_descriptions = {
-    "flu_1": "This provides weekly state-level coverage for age groups: 0-4yr, 5-12yr, 13-17yr, 0-17yr, 18-49yr, 50-64yr, 65+yr."
+    "flu_1": "This dataset contains _simulated_ influenza vaccine coverage data in fall-winter 2023-2024. The data provides weekly cumulative coverages by state and adult and child age groups. Estimates are based on the reported coverage of the flu vaccine in the 2021-2022 fall season by month, state, and age. We used a Piecewise Cubic Hermite Interpolating Polynomial to generate weekly coverage estimates from monthly data. Dates have been shifted to reflect projection weeks in the 2023-2024 season. The data in this file can be used as is (no adjustment to coverage should be needed). Age groups can be collapsed based on provided population sizes."
 }
 ########################################################################################################################
 #                                              rsv                                                                   #

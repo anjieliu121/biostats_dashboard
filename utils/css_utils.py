@@ -41,7 +41,7 @@ def markdown_background(txt):
                 unsafe_allow_html=True)
 
 
-def multiselect_css(txt, lst):
+def multiselect_css(txt, lst, *default):
     st.markdown(
         """
     <style>
@@ -53,5 +53,5 @@ def multiselect_css(txt, lst):
     """,
         unsafe_allow_html=True,
     )
-    box = st.multiselect(txt, lst)
+    box = st.multiselect(txt, lst, default=list(default))
     return box
