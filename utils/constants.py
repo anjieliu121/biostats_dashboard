@@ -7,10 +7,6 @@ page_title = "Meyers Database"
 web_description = "Meyers Database portal provides description and interactive visualization of data used in \
                    scenario hub, forecast or other scientific projects."
 
-########################################################################################################################
-#                                              PLOT                                                                    #
-########################################################################################################################
-graph_options = ["Timeseries Plot", "Multi-Line Plot"]
 
 ########################################################################################################################
 #                                              COVID                                                                   #

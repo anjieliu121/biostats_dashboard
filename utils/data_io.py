@@ -18,9 +18,9 @@ def read_cols(df):
 
 
 @st.cache_data(ttl=24 * 3600)
-def subset_df(df, col, condition):
+def subset_df(df, col, *conditions):
     # state = Texas
-    df = df[df[col] == condition]
+    df = df[df[col].isin(conditions)]
     return df
 
 
@@ -31,10 +31,32 @@ def subset_df_date(df, col, start, end):
 
 
 @st.cache_data(ttl=24 * 3600)
+def subset_df_col(df, cols_select):
+    return df[cols_select]
+
+
+
+@st.cache_data(ttl=24 * 3600)
 def customize_df_covid1(df):
     df['state_fullname'] = [state_abbr_full[s] for s in df['state']]
     df['date'] = pd.to_datetime(df['date'], format='%Y/%m/%d')
     df = df.sort_values(by=['state', 'date'])
     return df
 
+
+@st.cache_data(ttl=24 * 3600)
+def convert_df_csv(df):
+    return df.to_csv(index=False).encode('utf-8')
+
+
+def download_filtered_data(df, file_name, filtered_conditions):
+    csv = convert_df_csv(df)
+
+    st.download_button(
+        "Download Filtered Data",
+        csv,
+        f"{file_name}_{filtered_conditions}.csv",
+        "text/csv",
+        key='download-csv'
+    )
 

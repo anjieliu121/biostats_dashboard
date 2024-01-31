@@ -4,17 +4,19 @@ import pandas as pd
 
 from utils.css_utils import selection_box, markdown_background, \
     multiselect_css
-from utils.data_visual import plot_header, display_plotly_chart, download_fig
+from utils.data_visual import plot_header, display_plotly_chart, display_filtered_data
 
-from utils.constants import graph_options, covid_1_description
-from utils.data_io import read_df, read_cols, subset_df, subset_df_date, customize_df_covid1
+from utils.constants import covid_1_description
+from utils.data_io import read_df, read_cols, subset_df, subset_df_date, customize_df_covid1, convert_df_csv, download_filtered_data
+from utils.plot_utils import download_fig
 
 
 
 
 #@st.cache_data(ttl=24 * 3600)
 def visualization(file_name):
-    graph_select = plot_header()
+    graph_options = ["Timeseries Plot", "Multi-Line Plot"]
+    graph_select = plot_header(graph_options)
     # import dataset
     df = read_df(file_name)
     df = customize_df_covid1(df)
@@ -46,7 +48,7 @@ def visualization(file_name):
             plot_lineplot(df_temp, variables, states_select, title)
         # show and download filtered data
         display_filtered_data(df_temp)
-        download_filtered_data(df_temp, title, file_name)
+        download_filtered_data(df_temp, file_name[:-4], title)
     else:
         st.error('Error: End date must fall after start date.')
 
@@ -130,23 +132,3 @@ def plot_lineplot(df, variables, states_select, title):
         download_fig(fig, title)
 
 
-def display_filtered_data(df):
-    st.header("Quick Glance at the Filtered Data")
-    st.dataframe(df, use_container_width=True)
-
-
-#@st.cache_data
-def convert_df(df):
-    return df.to_csv(index=False).encode('utf-8')
-
-
-def download_filtered_data(df, title, file_name):
-    csv = convert_df(df)
-
-    st.download_button(
-        "Download Filtered Data",
-        csv,
-        f"{title}_{file_name}",
-        "text/csv",
-        key='download-csv'
-    )

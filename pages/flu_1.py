@@ -1,41 +1,37 @@
 from st_pages import add_page_title
+import pandas as pd
 from utils.constants import flu_file_names, flu_page_names, flu_descriptions, flu_url
-from utils.css_utils import selection_box
-from utils.data_io import read_df, read_cols, subset_df
-from utils.data_visual import plot_header, display_plotly_chart
+from utils.css_utils import selection_box, multiselect_css
+from utils.data_io import read_df, read_cols, subset_df, download_filtered_data
+from utils.data_visual import plot_header, plot_timeseries, plot_lines, plot_bar, display_filtered_data, display_filter_cols, display_dataset
+
 from utils.page_setup import display_page
-
-import plotly.express as px
-
-
-def plot_timeseries(df, var_select, title):
-    fig = px.scatter(df, x='Week_Ending_Sat', y=var_select, color="Age", title=title)
-    fig.update_layout(
-        title={
-            'text': title,
-            'y': 0.95,
-            'x': 0.35,
-            'xanchor': 'center',
-            'yanchor': 'top'},
-    )
-    fig = display_plotly_chart(fig)
+from utils.plot_utils import download_fig
 
 key = "flu_1"
 file_name = flu_file_names[key]
 
 add_page_title(page_title=flu_page_names[key], layout="wide")
 
-display_page(flu_file_names, flu_descriptions, flu_url, key, "1/29/2024", "Each row has a unique combination of Geography, Age, and Week_Ending_Sat.")
+display_page(flu_file_names, flu_descriptions, flu_url, key, "1/29/2024")
 
 # import dataset
 df = read_df(file_name)
 cols = read_cols(df)
 
+# display dataset
+display_dataset(df, notes="Each row has a unique combination of Geography, Age, and Week_Ending_Sat.")
+
+# filter dataset by column names
+display_filter_cols(df, cols, "Age, flu")
+
 # variables can users can plot
-variables = cols[4:]
+var_indices = [4, 5, 6]
+variables = [cols[i] for i in var_indices]
 
 # graph options
-graph_select = plot_header()
+graph_options = ["Timeseries Plot", "Multi-Line Plot", "Bar Chart"]
+graph_select = plot_header(graph_options)
 
 # geography options (US + States)
 geography = sorted(df['Geography'].unique())
@@ -46,19 +42,38 @@ geography_select = selection_box('Select U.S. or a State/Federal district in the
 df = subset_df(df, "Geography", geography_select)
 
 # age options
-# !!! change this to multiselect
 age = list(df['Age'].unique())
 age.insert(0, "All Age Groups")
-age_select = selection_box('Select an age group', age, index=0)
-if age_select != "All Age Groups":
-    df = subset_df(df, "Age", age_select)
-
-# select which variable to plot
-var_select = selection_box('Select the variable on the y-axis', variables, index=0)
+ages_select = multiselect_css('Select 1 or more age groups', age, age[0])
+if "All Age Groups" not in ages_select:
+    df = subset_df(df, "Age", *ages_select)
 
 # plot title
-title = f"Flu Coverage: {age_select} in {geography_select}"
+title = f"Flu Coverage: {ages_select} in {geography_select}"
 
 if graph_select == "Timeseries Plot":
-    plot_timeseries(df, var_select, title)
+    # select which variable to plot
+    var_select = selection_box('Select the variable on the y-axis', variables, index=0)
+    # plot
+    fig = plot_timeseries(df, 'Week_Ending_Sat', var_select, title, "Age")
+elif graph_select == "Multi-Line Plot":
+    # select which variables to plot
+    vars_select = multiselect_css("Select 1 or more variables", variables, variables[0])
+    if "All Age Groups" in ages_select:
+        ages_select = list(df['Age'].unique())
+    fig = plot_lines(df, "Week_Ending_Sat", vars_select, title, "Age", ages_select)
+elif graph_select == "Bar Chart":
+    unique_combinations = df.groupby(['Geography', 'Population', 'Age']).size().reset_index().rename(columns={0: 'Count'})
+    age_order = ['6 Months - 4 Years', '5-12 Years', '13-17 Years', '6 Months - 17 Years', '18-49 Years', '50-64 Years', '65+ Years']
+    unique_combinations['Age'] = pd.Categorical(unique_combinations['Age'], categories=age_order, ordered=True)
+    unique_combinations = unique_combinations.sort_values(by='Age')
+    title = title + " and its Population"
+    fig = plot_bar(unique_combinations, "Age", "Population", title)
 
+# download figure
+download_fig(fig, title)
+
+# download filtered data
+display_filtered_data(df)
+filtered_conditions = f"{geography_select}_{ages_select}"
+download_filtered_data(df, file_name[:-4], filtered_conditions)
