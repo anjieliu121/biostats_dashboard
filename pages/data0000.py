@@ -30,5 +30,11 @@ display_filter_cols(df, cols, "adult, pediatric")
 visualization(covid_file_names[key])
 
 page_info = read_json("data0000")
-st.header(f"Dataset Contributer: {page_info['upload_user']}")
-st.warning("Thank you for uploading the dataset to Meyers Database! If you have more to share, please click here (I'll update the link (eventually))")
+upload_user = page_info['upload_user']
+if len(upload_user)>1:
+    st.header(f"Dataset Contributers")
+    st.warning(f"{', '.join(upload_user)}")
+else:
+    st.header(f"Dataset Contributer")
+    st.warning(f"{upload_user[0]}")
+st.markdown("Thank you for uploading the dataset to Meyers Database! If you have more to share, please click here (I'll update the link (eventually))")
