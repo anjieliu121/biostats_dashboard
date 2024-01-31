@@ -4,7 +4,7 @@ from PIL import Image
 from utils.constants import covid_file_names, covid_page_names, covid_descriptions, covid_url
 from visualization.covid_1_vis import visualization
 from utils.page_setup import display_page
-from utils.data_io import read_df, read_cols, subset_df, download_filtered_data
+from utils.data_io import read_df, read_cols, read_json
 
 from utils.data_visual import display_dataset, display_filter_cols
 
@@ -29,3 +29,6 @@ display_filter_cols(df, cols, "adult, pediatric")
 
 visualization(covid_file_names[key])
 
+page_info = read_json("data0000")
+st.header(f"Dataset Contributer: {page_info['upload_user']}")
+st.warning("Thank you for uploading the dataset to Meyers Database! If you have more to share, please click here (I'll update the link (eventually))")

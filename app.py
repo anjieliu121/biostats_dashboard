@@ -1,35 +1,27 @@
 import streamlit as st
-from PIL import Image
-import json
-import os
-from streamlit_extras.app_logo import add_logo
 from st_pages import Page, Section, add_page_title, show_pages
-from utils.constants import page_title, web_description, \
-    covid_page_names, flu_page_names, rsv_page_names
-
-
-json_path = "~/json"
-if os.path.exists(json_path) and os.path.isdir(json_path):
-    st.markdown("ok")
-else:
-    st.markdown("not ok")
+from utils.constants import page_title, web_description
+from utils.data_io import read_json
 
 pages = [Page("app.py", page_title)]
 
-# covid section
 
-pages_covid = [Section(name="COVID-19", icon=":microbe:"),
-               Page("pages/covid_1.py", covid_page_names["covid_1"], icon=":jigsaw:"),]
+database_info = read_json("database_info")
+dataset_cnt = database_info["dataset_count"]
+sections = database_info["sections"]
 
-# flu section
-
-pages_flu = [Section(name="Flu", icon=":microbe:"),
-             Page("pages/flu_1.py", flu_page_names["flu_1"], icon=":jigsaw:"),]
-
-# rsv section
-
-pages_rsv = [Section(name="RSV", icon=":microbe:"),
-             Page("pages/rsv_1.py", rsv_page_names["rsv_1"], icon=":jigsaw:"),]
+for section in sections:
+    pages.append(Section(name=section, icon=":microbe:"))
+    for page in sections[section]:
+        page_info = read_json(page)
+        page_type = page_info["type"]
+        if page_type == "real":
+            icon = ":telescope:"#":earth_americas:"
+        elif page_type == "simulated":
+            icon = ":hammer_and_wrench:"
+        else:
+            icon = ":jigsaw:"
+        pages.append(Page(f"pages/{page}.py", page_info["page_name"], icon=icon))
 
 # unclassified section
 
@@ -38,14 +30,18 @@ pages_rsv = [Section(name="RSV", icon=":microbe:"),
 #Page("example_app/example_five.py", "Example Five", "🧰", in_section=False),
 
 
-# combine
-pages = pages + pages_covid + pages_flu + pages_rsv
 show_pages(pages)
 
 add_page_title(layout="wide")
 
 f"## {web_description}"
+st.divider()
 
 # add UT logo to the sidebar
 img_path = "images/ut_logo.png"
 st.sidebar.image(img_path)
+
+# emoji keys
+st.header("What does the emoji before each page mean?")
+st.markdown(":telescope: real-world data")
+st.markdown(":hammer_and_wrench: simulated data")

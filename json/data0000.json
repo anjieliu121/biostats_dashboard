@@ -1,6 +1,8 @@
 {
-  "id": 0,
-  "section": "covid",
+  "name": "data0000",
+  "section": "COVID-19",
   "type": "real",
-  "file_name": "COVID-19_Reported_Patient_Impact_and_Hospital_Capacity_by_State_Timeseries__RAW.csv"
+  "file_name": "COVID-19_Reported_Patient_Impact_and_Hospital_Capacity_by_State_Timeseries__RAW.csv",
+  "page_name": "COVID-19 Reported Patient Impact and Hospital Capacity by State Timeseries",
+  "upload_user": "Anjie Liu"
 }

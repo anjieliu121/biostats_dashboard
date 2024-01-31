@@ -1,6 +1,7 @@
 import streamlit as st
 import numpy as np
 import pandas as pd
+import json
 
 from utils.constants import state_abbr_full
 
@@ -60,3 +61,33 @@ def download_filtered_data(df, file_name, filtered_conditions):
         key='download-csv'
     )
 
+
+@st.cache_data(ttl=24 * 3600)
+def read_json(file_name):
+    f = open(f'json/{file_name}.json')
+    d = json.load(f)
+    f.close()
+    return d
+
+"""
+json_path = "https://github.com/anjieliu121/biostats_dashboard/blob/5c486334a84c1507977d1298108e1ba767f075ec/json"
+response = requests.get(json_path)
+if response.status_code == 200:
+    files_info = response.json()
+    # Iterate over each file in the folder
+    json_files = files_info["payload"]["tree"]
+    json_files_cnt = json_files["totalCount"]
+    for json_file in json_files["items"]:
+        # Get the raw content URL for each file
+        name = json_file["name"]
+        full_path = f"{json_path}/{name}"
+        # Make a request to the raw content URL to get the file content
+        file_response = requests.get(full_path)
+        if file_response.status_code == 200:
+            # Parse the JSON content of the file
+            file_data = json.loads(file_response.text)
+            st.markdown(file_data)
+else:
+    st.markdown("cannot access data files")
+    
+"""
