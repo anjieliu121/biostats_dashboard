@@ -1,7 +1,5 @@
 from st_pages import add_page_title
 import streamlit as st
-from PIL import Image
-from utils.constants import covid_file_names, covid_page_names, covid_descriptions, covid_url
 from visualization.covid_1_vis import visualization
 from utils.page_setup import display_page
 from utils.data_io import read_df, read_cols, read_json
@@ -9,12 +7,12 @@ from utils.data_io import read_df, read_cols, read_json
 from utils.data_visual import display_dataset, display_filter_cols
 
 
-key = "covid_1"
-file_name = covid_file_names[key]
+page_info = read_json("data0000")
+file_name = page_info["file_name"]
 
-add_page_title(page_title=covid_page_names[key], layout="wide")
+add_page_title(page_title=page_info["page_name"], layout="wide")
 
-display_page(covid_file_names, covid_descriptions, covid_url, key, "1/29/2024")
+display_page(page_info)
 
 # import dataset
 df = read_df(file_name)
@@ -27,14 +25,14 @@ display_dataset(df, notes="Each row has a unique state and date value pair.")
 display_filter_cols(df, cols, "adult, pediatric")
 
 
-visualization(covid_file_names[key])
+visualization(file_name)
 
-page_info = read_json("data0000")
+
 upload_user = page_info['upload_user']
-if len(upload_user)>1:
-    st.header(f"Dataset Contributers")
+if len(upload_user) > 1:
+    st.header(f"Dataset Contributors")
     st.warning(f"{', '.join(upload_user)}")
 else:
-    st.header(f"Dataset Contributer")
+    st.header(f"Dataset Contributor")
     st.warning(f"{upload_user[0]}")
-st.markdown("Thank you for uploading the dataset to Meyers Database! If you have more to share, please click here (I'll update the link (eventually))")
+st.markdown("Thank you for uploading the dataset to Meyers Database!")

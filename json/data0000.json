@@ -4,5 +4,8 @@
   "type": "real",
   "file_name": "COVID-19_Reported_Patient_Impact_and_Hospital_Capacity_by_State_Timeseries__RAW.csv",
   "page_name": "COVID-19 Reported Patient Impact and Hospital Capacity by State Timeseries",
+  "description": "This dataset provides state-aggregated data for __hospital utilization__ in a timeseries format dating back to _January 1, 2020_. These are derived from reports with facility-level granularity across three main sources: (1) HHS TeleTracking, (2) reporting provided directly to HHS Protect by state/territorial health departments on behalf of their healthcare facilities and (3) National Healthcare Safety Network (before July 15). After _Friday September 29th, 2023_, as a result of changes in reporting cadence, this dataset will be updated twice a week on Wednesdays and Fridays.",,,
+  "source": "https://healthdata.gov/Hospital/COVID-19-Reported-Patient-Impact-and-Hospital-Capa/g62h-syeh",
+  "local_file_update_date": "1/29/2024",
   "upload_user": ["Shraddha R. Bandekar","Anjie Liu"]
 }

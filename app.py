@@ -5,7 +5,6 @@ from utils.data_io import read_json
 
 pages = [Page("app.py", page_title)]
 
-
 database_info = read_json("database_info")
 dataset_cnt = database_info["dataset_count"]
 sections = database_info["sections"]
@@ -16,7 +15,7 @@ for section in sections:
         page_info = read_json(page)
         page_type = page_info["type"]
         if page_type == "real":
-            icon = ":telescope:"#":earth_americas:"
+            icon = ":telescope:"  # ":earth_americas:"
         elif page_type == "simulated":
             icon = ":hammer_and_wrench:"
         else:
@@ -25,9 +24,9 @@ for section in sections:
 
 # unclassified section
 
-#Page("pages/rsv_2.py", rsv_page_names["rsv_2"], icon=":jigsaw:"),
+# Page("pages/rsv_2.py", rsv_page_names["rsv_2"], icon=":jigsaw:"),
 # You can also pass in_section=False to a page to make it un-indented
-#Page("example_app/example_five.py", "Example Five", "🧰", in_section=False),
+# Page("example_app/example_five.py", "Example Five", "🧰", in_section=False),
 
 
 show_pages(pages)

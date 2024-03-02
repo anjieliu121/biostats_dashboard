@@ -2,18 +2,20 @@ from st_pages import add_page_title
 import pandas as pd
 from utils.constants import flu_file_names, flu_page_names, flu_descriptions, flu_url
 from utils.css_utils import selection_box, multiselect_css
-from utils.data_io import read_df, read_cols, subset_df, download_filtered_data
+from utils.data_io import read_df, read_cols, subset_df, download_filtered_data, read_json
 from utils.data_visual import plot_header, plot_timeseries, plot_lines, plot_bar, display_filtered_data, display_filter_cols, display_dataset
 
 from utils.page_setup import display_page
 from utils.plot_utils import download_fig
 
 key = "flu_1"
-file_name = flu_file_names[key]
+page_info = read_json("data0001")
+file_name = page_info["file_name"]
 
-add_page_title(page_title=flu_page_names[key], layout="wide")
+add_page_title(page_title=page_info["page_name"], layout="wide")
 
-display_page(flu_file_names, flu_descriptions, flu_url, key, "1/29/2024")
+display_page(page_info)
+
 
 # import dataset
 df = read_df(file_name)
