@@ -8,7 +8,6 @@ from utils.data_visual import plot_header, plot_timeseries, plot_lines, plot_bar
 from utils.page_setup import display_page
 from utils.plot_utils import download_fig
 
-key = "flu_1"
 page_info = read_json("data0001")
 file_name = page_info["file_name"]
 
