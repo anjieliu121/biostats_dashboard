@@ -1,6 +1,5 @@
 from st_pages import add_page_title
 import pandas as pd
-from utils.constants import flu_file_names, flu_page_names, flu_descriptions, flu_url
 from utils.css_utils import selection_box, multiselect_css
 from utils.data_io import read_df, read_cols, subset_df, download_filtered_data, read_json
 from utils.data_visual import plot_header, plot_timeseries, plot_lines, plot_bar, display_filtered_data, display_filter_cols, display_dataset

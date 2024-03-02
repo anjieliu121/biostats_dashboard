@@ -7,7 +7,8 @@ def display_page(page_info):
     file_name = page_info["file_name"]
     display_data_description(page_info["description"])
     display_source(page_info["source"])
-    display_download_button(file_name, page_info["local_file_update_date"])
+    if file_name != "NONE":
+        display_download_button(file_name, page_info["local_file_update_date"])
 
     img_path = "images/ut_logo.png"
     st.sidebar.image(img_path)

@@ -5,3 +5,4 @@ kaleido==0.2.1
 numpy==1.26.4
 pandas==2.2.1
 requests==2.31.0
+sodapy==2.2.0

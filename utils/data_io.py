@@ -2,8 +2,7 @@ import streamlit as st
 import numpy as np
 import pandas as pd
 import json
-import os
-
+from sodapy import Socrata
 from utils.constants import state_abbr_full
 
 
@@ -70,6 +69,13 @@ def read_json(file_name):
     f.close()
     return d
 
+
+@st.cache_data(ttl=24 * 3600)
+def read_cdc_api(client_args):
+    client = Socrata("data.cdc.gov", None)
+    results = client.get(**client_args)
+    df = pd.DataFrame.from_records(results)
+    return df
 
 """
 json_path = "https://github.com/anjieliu121/biostats_dashboard/blob/5c486334a84c1507977d1298108e1ba767f075ec/json"
