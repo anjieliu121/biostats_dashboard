@@ -4,6 +4,7 @@ import pandas as pd
 import json
 from sodapy import Socrata
 from utils.constants import state_abbr_full
+from utils.css_utils import download_button_css
 
 
 @st.cache_data(ttl=24 * 3600)
@@ -51,6 +52,7 @@ def convert_df_csv(df):
 
 
 def download_filtered_data(df, file_name, filtered_conditions):
+    st.markdown(download_button_css, unsafe_allow_html=True)
     csv = convert_df_csv(df)
 
     st.download_button(
@@ -72,9 +74,11 @@ def read_json(file_name):
 
 @st.cache_data(ttl=24 * 3600)
 def read_cdc_api(client_args):
+    na_values = ["NA", "Missing", "Unknown"]
     client = Socrata("data.cdc.gov", None)
     results = client.get(**client_args)
     df = pd.DataFrame.from_records(results)
+    df = df.replace(na_values, np.nan)
     return df
 
 """

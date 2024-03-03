@@ -1,16 +1,14 @@
 import streamlit as st
 
+download_button_css = """ <style> 
+                            div.stDownloadButton > button:first-child {
+                                background-color: #bf5700;
+                                color:#FFFFFF;
+                            }
+                          </style>"""
 
 def display_download_button(file_name, date=None):
-    st.markdown(
-        """ 
-        <style>
-        div.stDownloadButton > button:first-child {
-            background-color: #bf5700;
-            color:#FFFFFF;
-        }
-        </style>
-        """, unsafe_allow_html=True)
+    st.markdown(download_button_css, unsafe_allow_html=True)
 
     columns = st.columns([1,1,1,1,1])
     with columns[0]:
