@@ -10,24 +10,81 @@
   "local_file_update_date": "3/2/2024",
   "upload_user": ["Emily","Shraddha R. Bandekar","Anjie Liu"],
   "columns": {
-    "case_month": "The earlier of month the Clinical Date (date related to the illness or specimen collection) or the Date Received by CDC",
-    "res_state": "State of residence",
-    "state_fips_code": "State FIPS code",
-    "res_county": "County of residence",
-    "county_fips_code": "County FIPS code",
-    "age_group": "Age group [0 - 17 years; 18 - 49 years; 50 - 64 years; 65 + years; Unknown; Missing; NA, if value suppressed for privacy protection.]",
-    "sex": "Sex [Female; Male; Other; Unknown; Missing; NA, if value suppressed for privacy protection.]",
-    "race": "Race [American Indian/Alaska Native; Asian; Black; Multiple/Other; Native Hawaiian/Other Pacific Islander; White; Unknown; Missing; NA, if value suppressed for privacy protection.]",
-    "ethnicity": "Ethnicity [Hispanic; Non-Hispanic; Unknown; Missing; NA, if value suppressed for privacy protection.]",
-    "case_positive_specimen_interval": "Weeks between earliest date and date of first positive specimen collection",
-    "case_onset_interval": "Weeks between earliest date and date of symptom onset.",
-    "process": "Under what process was the case first identified? [Clinical evaluation; Routine surveillance; Contact tracing of case patient; Multiple; Other; Unknown; Missing]",
-    "exposure_yn": "In the 14 days prior to illness onset, did the patient have any of the following known exposures: domestic travel, international travel, cruise ship or vessel travel as a passenger or crew member, workplace, airport/airplane, adult congregate living facility (nursing, assisted living, or long-term care facility), school/university/childcare center, correctional facility, community event/mass gathering, animal with confirmed or suspected COVID-19, other exposure, contact with a known COVID-19 case? [Yes, Unknown, Missing]",
-    "current_status": "What is the current status of this person? [Laboratory-confirmed case, Probable case]",
-    "symptom_status": "What is the symptom status of this person? [Asymptomatic, Symptomatic, Unknown, Missing]",
-    "hosp_yn": "Was the patient hospitalized? [Yes, No, Unknown, Missing]",
-    "icu_yn": "Was the patient admitted to an intensive care unit (ICU)? [Yes, No, Unknown, Missing]",
-    "death_yn": "Did the patient die as a result of this illness?  [Yes; No; Unknown; Missing; NA, if value suppressed for privacy protection.]",
-    "underlying_conditions_yn": "Did the patient have one or more of the underlying medical conditions and risk behaviors: diabetes mellitus, hypertension, severe obesity (BMI>40), cardiovascular disease, chronic renal disease, chronic liver disease, chronic lung disease, other chronic diseases, immunosuppressive condition, autoimmune condition, current smoker, former smoker, substance abuse or misuse, disability, psychological/psychiatric, pregnancy, other. [Yes, No, blank]"
+    "case_month": {
+		"description": "The earlier of month the Clinical Date (date related to the illness or specimen collection) or the Date Received by CDC",
+		"values": ["2022-01", "2021-12", "2020-12", "2021-01", "2020-11", "2021-08", "2021-09", "2022-07", "2022-05", "2022-02", "2022-06", "2022-08", "2021-11", "2021-10", "2021-02", "2020-10", "2021-03", "2022-12", "2020-07", "2021-07"]
+	},
+	"res_state": {
+		"description": "State of residence",
+		"values": ["CA", "TX", "NY", "FL", "IL", "PA", "OH", "NC", "NJ", "MI", "GA", "TN", "AZ", "VA", "MA", "IN", "WA", "SC", "MO", "MN"]
+	},
+	"state_fips_code": {
+		"description": "State FIPS code",
+		"values": ["06", "48", "36", "12", "17", "42", "39", "37", "34", "26", "13", "47", "04", "51", "25", "18", "53", "45", "29", "27"]
+	},
+	"res_county": {
+		"description": "County of residence",
+		"values": ["NA", "LOS ANGELES", "COOK", "MARICOPA", "ORANGE", "MIAMI-DADE", "JEFFERSON", "SAN DIEGO", "KINGS", "HARRIS", "MONTGOMERY", "QUEENS", "CLARK", "SUFFOLK", "MIDDLESEX", "RIVERSIDE", "SAN BERNARDINO", "WASHINGTON", "DALLAS", "FRANKLIN"]
+	},
+	"county_fips_code": {
+		"description": "County FIPS code",
+		"values": ["NA", "06037", "17031", "04013", "12086", "06073", "48201", "36047", "36081", "06059", "06065", "06071", "48113", "36061", "32003", "12011", "48029", "36059", "36005", "48439"]
+	},
+	"age_group": {
+		"description": "Age group [0 - 17 years; 18 - 49 years; 50 - 64 years; 65 + years; Unknown; Missing; NA, if value suppressed for privacy protection.]",
+		"values": ["18 to 49 years", "50 to 64 years", "0 - 17 years", "65+ years", "NA", "Missing"]
+	},
+	"sex": {
+		"description": "Sex [Female; Male; Other; Unknown; Missing; NA, if value suppressed for privacy protection.]",
+		"values": ["Female", "Male", "NA", "Unknown", "Missing", "Other"]
+	},
+	"race": {
+		"description": "Race [American Indian/Alaska Native; Asian; Black; Multiple/Other; Native Hawaiian/Other Pacific Islander; White; Unknown; Missing; NA, if value suppressed for privacy protection.]",
+		"values": ["White", "NA", "Unknown", "Black", "Missing", "Asian", "Multiple/Other", "American Indian/Alaska Native", "Native Hawaiian/Other Pacific Islander"]
+	},
+	"ethnicity": {
+		"description": "Ethnicity [Hispanic; Non-Hispanic; Unknown; Missing; NA, if value suppressed for privacy protection.]",
+		"values": ["Non-Hispanic/Latino", "NA", "Unknown", "Hispanic/Latino", "Missing"]
+	},
+	"case_positive_specimen_interval": {
+		"description": "Weeks between earliest date and date of first positive specimen collection",
+		"values": ["0.0", "1.0", "2.0", "-1.0", "3.0", "4.0", "5.0", "-2.0", "6.0", "-4.0", "-3.0", "7.0", "9.0", "8.0", "52.0", "10.0", "-5.0", "11.0", "-6.0", "-52.0"]
+	},
+	"case_onset_interval": {
+		"description": "Weeks between earliest date and date of symptom onset.",
+		"values": ["0.0", "-1.0", "-2.0", "-3.0", "1.0", "-4.0", "-5.0", "-6.0", "-7.0", "4.0", "2.0", "-8.0", "3.0", "-9.0", "-11.0", "-10.0", "-12.0", "-105.0", "-13.0", "-53.0"]
+	},
+	"process": {
+		"description": "Under what process was the case first identified? [Clinical evaluation; Routine surveillance; Contact tracing of case patient; Multiple; Other; Unknown; Missing]",
+		"values": ["Missing", "Clinical evaluation", "Laboratory reported", "Routine surveillance", "Multiple", "Contact tracing of case patient", "Provider reported", "Unknown", "Other", "Routine physical examination", "Autopsy"]
+	},
+	"exposure_yn": {
+		"description": "In the 14 days prior to illness onset, did the patient have any of the following known exposures: domestic travel, international travel, cruise ship or vessel travel as a passenger or crew member, workplace, airport/airplane, adult congregate living facility (nursing, assisted living, or long-term care facility), school/university/childcare center, correctional facility, community event/mass gathering, animal with confirmed or suspected COVID-19, other exposure, contact with a known COVID-19 case? [Yes, Unknown, Missing]",
+		"values": ["Missing", "Yes", "Unknown"]
+	},
+	"current_status": {
+		"description": "What is the current status of this person? [Laboratory-confirmed case, Probable case]",
+		"values": ["Laboratory-confirmed case", "Probable Case"]
+	},
+	"symptom_status": {
+		"description": "What is the symptom status of this person? [Asymptomatic, Symptomatic, Unknown, Missing]",
+		"values": ["Missing", "Symptomatic", "Unknown", "Asymptomatic"]
+	},
+	"hosp_yn": {
+		"description": "Was the patient hospitalized? [Yes, No, Unknown, Missing]",
+		"values": ["Missing", "No", "Unknown", "Yes"]
+	},
+	"icu_yn": {
+		"description": "Was the patient admitted to an intensive care unit (ICU)? [Yes, No, Unknown, Missing]",
+		"values": ["Missing", "Unknown", "No", "Yes"]
+	},
+	"death_yn": {
+		"description": "Did the patient die as a result of this illness?  [Yes; No; Unknown; Missing; NA, if value suppressed for privacy protection.]",
+		"values": ["Missing", "No", "Unknown", "NA", "Yes"]
+	},
+	"underlying_conditions_yn": {
+		"description": "Did the patient have one or more of the underlying medical conditions and risk behaviors: diabetes mellitus, hypertension, severe obesity (BMI>40), cardiovascular disease, chronic renal disease, chronic liver disease, chronic lung disease, other chronic diseases, immunosuppressive condition, autoimmune condition, current smoker, former smoker, substance abuse or misuse, disability, psychological/psychiatric, pregnancy, other. [Yes, No, blank]",
+		"values": ["Yes", "No"]
+	}
   }
 }
