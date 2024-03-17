@@ -8,7 +8,7 @@
   "description": "This case surveillance public use dataset has 19 elements for all COVID-19 cases shared with CDC and includes demographics, geography (county and state of residence), any exposure history, disease severity indicators and outcomes, and presence of any underlying medical conditions and risk behaviors.",
   "source": "https://data.cdc.gov/Case-Surveillance/COVID-19-Case-Surveillance-Public-Use-Data-with-Ge/n8mc-b4w4/about_data",
   "local_file_update_date": "3/2/2024",
-  "upload_user": ["Emily Javan","Shraddha R. Bandekar","Anjie Liu"],
+  "upload_users": ["Emily Javan","Shraddha R. Bandekar","Anjie Liu"],
   "columns": {
     "case_month": {
 		"description": "The earlier of month the Clinical Date (date related to the illness or specimen collection) or the Date Received by CDC",
