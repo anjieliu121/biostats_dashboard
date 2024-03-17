@@ -20,6 +20,15 @@ def read_cols(df):
 
 
 @st.cache_data(ttl=24 * 3600)
+def get_unique_values(df, col):
+    # sorted, non-NA
+    unique_values = df[col].unique()
+    unique_values = [x for x in unique_values if x == x]
+    unique_values.sort()
+    return unique_values
+
+
+@st.cache_data(ttl=24 * 3600)
 def subset_df(df, col, *conditions):
     # state = Texas
     df = df[df[col].isin(conditions)]
@@ -41,6 +50,11 @@ def subset_df_col(df, cols_select):
 def convert_state_abbr_full(df, state_col='state'):
     # add a new state_fullname column
     df['state_fullname'] = [state_abbr_full[s] for s in df[state_col]]
+    # reorder the columns
+    cols = read_cols(df)
+    i = np.where(cols == state_col)[0][0]
+    new_order = list(cols[0:i+1]) + ['state_fullname'] + list(cols[i+1:-1])
+    df = df[new_order]
     return df
 
 

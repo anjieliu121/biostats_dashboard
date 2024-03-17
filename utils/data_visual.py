@@ -6,9 +6,9 @@ from utils.css_utils import markdown_background, selection_box
 from utils.data_io import read_df, read_cols, subset_df_col
 
 
-def plot_header(graph_options):
+def plot_header(graph_options, header="Interactive Multivariate Visualization"):
     # header
-    st.header("Interactive Multivariate Visualization")
+    st.header(header)
     # warning
     st.warning('Minimize the sidebar to the left by clicking \'×\' for the best plot view.', icon="⭐")
     # plot options
@@ -33,24 +33,22 @@ def display_plotly_chart(fig, fig_height=fig_height):
     st.plotly_chart(fig, theme="streamlit", use_container_width=True, height=fig_height)
     return fig
 
-
 @st.cache_data(ttl=24 * 3600)
 def plot_bar_univariate(df, option):
     unique_values = df[option].unique()
     unique_values = [x for x in unique_values if x == x]
-    st.markdown(unique_values)
+    unique_values.sort()
+    markdown_background(f"Unique Values: {unique_values}")
     fig = px.bar(df, x=option)
     fig.update_layout(
         xaxis=dict(
-            categoryorder="total ascending",
+            type='category',
             categoryarray=unique_values,
-            #tickmode='array',
+            tickmode='array',
             tickvals=unique_values,
             ticktext=unique_values,
-            tickangle=45
         ),
-    ),
-    # fig.update_xaxes(categoryorder="total descending")
+    )
     display_plotly_chart(fig)
 
 
