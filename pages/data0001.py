@@ -4,7 +4,7 @@ from utils.css_utils import selection_box, multiselection_box
 from utils.data_io import read_df, read_cols, subset_df, download_filtered_data, read_json
 from utils.data_visual import plot_header, plot_timeseries, plot_lines, plot_bar, display_filtered_data, display_filter_cols, display_dataset
 
-from utils.page_setup import display_page
+from utils.page_setup import display_page, display_contributors
 from utils.plot_utils import download_fig
 
 page_info = read_json("data0001")
@@ -77,3 +77,7 @@ download_fig(fig, title)
 display_filtered_data(df)
 filtered_conditions = f"{geography_select}_{ages_select}"
 download_filtered_data(df, file_name[:-4], filtered_conditions)
+
+# show people who upload the data
+upload_users = page_info['upload_users']
+display_contributors(upload_users)

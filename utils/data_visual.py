@@ -4,6 +4,8 @@ import plotly.express as px
 from utils.constants import fig_height
 from utils.css_utils import markdown_background, selection_box
 from utils.data_io import read_df, read_cols, subset_df_col
+import plotly.io as pio
+
 
 
 def plot_header(graph_options, header="Interactive Multivariate Visualization"):
@@ -35,6 +37,7 @@ def display_plotly_chart(fig, fig_height=fig_height):
 
 @st.cache_data(ttl=24 * 3600)
 def plot_bar_univariate(df, option):
+    pio.templates.default = "plotly"
     unique_values = df[option].unique()
     unique_values = [x for x in unique_values if x == x]
     unique_values.sort()
@@ -55,6 +58,7 @@ def plot_bar_univariate(df, option):
 
 @st.cache_data(ttl=24 * 3600)
 def plot_timeseries(df, x, var_select, title, color):
+    pio.templates.default = "plotly"
     if color:
         fig = px.scatter(df, x=x, y=var_select, color=color, title=title)
     fig.update_layout(
@@ -71,6 +75,7 @@ def plot_timeseries(df, x, var_select, title, color):
 
 @st.cache_data(ttl=24 * 3600)
 def plot_lines(df, x, vars_select, title, color, cvars_select):
+    pio.templates.default = "plotly"
     if color:
         # add first selected variable with all selected age groups
         fig = px.line(df, x=x, y=vars_select[0], color=color)
@@ -99,6 +104,7 @@ def plot_lines(df, x, vars_select, title, color, cvars_select):
 
 @st.cache_data(ttl = 24 * 3600)
 def plot_bar(df, x, y, title):
+    pio.templates.default = "plotly"
     fig = px.bar(df, y=y, x=x, text=y)
     fig.update_traces(textposition='outside')
     fig.update_layout(uniformtext_minsize=8, uniformtext_mode='hide')

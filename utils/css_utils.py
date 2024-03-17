@@ -2,7 +2,7 @@ import streamlit as st
 
 download_button_css = """ <style> 
                             div.stDownloadButton > button:first-child {
-                                background-color: #bf5700;
+                                background-color: #005f86;
                                 color:#FFFFFF;
                             }
                           </style>"""
@@ -36,6 +36,7 @@ def display_download_button(file_name, date=None):
     with columns[1]:
         if date:
             st.caption(f"Last Update:  \n %s" % date)
+
 
 
 def selection_box(txt, lst, index):  # bf5700

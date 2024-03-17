@@ -14,6 +14,9 @@ from utils.plot_utils import download_fig
 
 from utils.data_visual import display_dataset, display_filter_cols
 
+import plotly.io as pio
+pio.templates.default = "plotly"
+
 ########################################################################################################################
 #                                               set up                                                                 #
 ########################################################################################################################

@@ -1,10 +1,13 @@
 import streamlit as st
 import plotly.express as px
 from st_pages import add_page_title
-from utils.page_setup import display_page
+from utils.page_setup import display_page, display_contributors
 from utils.data_io import read_json, read_cols, read_cdc_api, convert_state_abbr_full, download_filtered_data, subset_df, get_unique_values
 from utils.css_utils import selection_box, multiselection_box, markdown_background
 from utils.data_visual import display_filtered_data, plot_bar_univariate, plot_header, display_plotly_chart
+from utils.plot_utils import download_fig
+import plotly.io as pio
+pio.templates.default = "plotly"
 
 
 
@@ -108,7 +111,7 @@ if graph_select == graph_options[0]:
     # filter by state
     state_options = ["ALL states"] + states
     state_option = selection_box('Select one State', state_options, index=0)
-    if state_option is not "ALL states":
+    if state_option != "ALL states":
         df_sub = subset_df(df, 'state_fullname', state_option)
     else:
         df_sub = df.copy()
@@ -127,10 +130,15 @@ if graph_select == graph_options[0]:
         unique_values = get_unique_values(df_sub, "case_month")
         #update_categorical_axes(fig, unique_values)
         display_plotly_chart(fig)
+        # download fig
+        title = f"{y_option} VS {x_option} IN {state_option}"
+        download_fig(fig, title)
     else:
         st.warning(f"The column is empty for {state_option}. No plot can be generated. Try another state or response variable!", icon="🤨")#🔺🚫
 
 
-
+# show people who upload the data
+upload_users = page_info['upload_users']
+display_contributors(upload_users)
 
 

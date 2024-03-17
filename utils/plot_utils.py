@@ -1,7 +1,9 @@
 import io
 import streamlit as st
 
+
 def download_fig(fig, title):
+
     st.warning('Save your work!', icon="⭐")
     buffer = io.StringIO()
     fig.write_html(buffer, include_plotlyjs='cdn')
