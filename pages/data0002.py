@@ -6,7 +6,7 @@ from utils.data_io import read_json, read_cols, read_cdc_api, convert_state_abbr
 from utils.css_utils import selection_box, multiselection_box, markdown_background
 from utils.data_visual import display_filtered_data, plot_bar_univariate, plot_header, display_plotly_chart
 
-query_limit = 1000
+
 
 page_info = read_json("data0002")
 page_name = page_info["page_name"]
@@ -14,7 +14,8 @@ column_description = page_info["columns"]
 
 add_page_title(page_title=page_name, layout="wide")
 display_page(page_info)
-st.warning(f'Since the original dataset contains more than 105 million rows, this page will only query {query_limit} rows for visualization purposes.', icon="⚠️")
+query_limit = st.text_input('Query Limit', 1000)
+st.warning(f'Since the original dataset contains more than 105 million rows, this page will only query {query_limit} rows for visualization purposes. You can edit the query limit, but be aware of the runtime.', icon="⚠️")
 
 
 
