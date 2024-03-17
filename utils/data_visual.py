@@ -1,4 +1,5 @@
 import streamlit as st
+import numpy as np
 import plotly.express as px
 from utils.constants import fig_height
 from utils.css_utils import markdown_background, selection_box
@@ -31,6 +32,27 @@ def display_plotly_chart(fig, fig_height=fig_height):
     fig.update_layout(height=fig_height)
     st.plotly_chart(fig, theme="streamlit", use_container_width=True, height=fig_height)
     return fig
+
+
+@st.cache_data(ttl=24 * 3600)
+def plot_bar_univariate(df, option):
+    unique_values = df[option].unique()
+    unique_values = [x for x in unique_values if x == x]
+    st.markdown(unique_values)
+    fig = px.bar(df, x=option)
+    fig.update_layout(
+        xaxis=dict(
+            categoryorder="total ascending",
+            categoryarray=unique_values,
+            #tickmode='array',
+            tickvals=unique_values,
+            ticktext=unique_values,
+            tickangle=45
+        ),
+    ),
+    # fig.update_xaxes(categoryorder="total descending")
+    display_plotly_chart(fig)
+
 
 
 @st.cache_data(ttl=24 * 3600)
@@ -106,24 +128,6 @@ def display_filtered_data(df):
     st.dataframe(df, use_container_width=True)
 
 
-def univariate_distribution(file_name):
-    df = read_df(file_name)
-    cols = read_cols(df)
-
-    st.markdown("""
-        	<style>
-        	.stSelectbox:first-of-type > div[data-baseweb="select"] > div {
-        	      background-color: #bf5700;
-            	  padding: 10px;
-        	}
-        	</style>
-        """, unsafe_allow_html=True)
-
-    st.header("Univariate Visualization")
-    col_select = st.selectbox("Univariate Distribution", cols, label_visibility="collapsed")
-
-    fig = px.histogram(df, x=col_select)
-    display_plotly_chart(fig)
 
 
 def multivariate_distribution(file_name):

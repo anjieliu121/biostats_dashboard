@@ -12,3 +12,18 @@ def display_page(page_info):
 
     img_path = "images/ut_logo.png"
     st.sidebar.image(img_path)
+
+
+def add_sidebar_image():
+    img_path = "images/ut_logo.png"
+    st.sidebar.image(img_path)
+
+
+def display_contributors(upload_users):
+    if len(upload_users) > 1:
+        st.header(f"Dataset Contributors")
+        st.warning(f"{', '.join(upload_users)}")
+    else:
+        st.header(f"Dataset Contributor")
+        st.warning(f"{upload_users[0]}")
+    st.markdown("Thank you for uploading the dataset to Meyers Database!")

@@ -37,13 +37,26 @@ def subset_df_col(df, cols_select):
     return df[cols_select]
 
 
+@st.cache_data(ttl=24 * 3600)
+def convert_state_abbr_full(df, state_col='state'):
+    # add a new state_fullname column
+    df['state_fullname'] = [state_abbr_full[s] for s in df[state_col]]
+    return df
+
 
 @st.cache_data(ttl=24 * 3600)
-def customize_df_covid1(df):
-    df['state_fullname'] = [state_abbr_full[s] for s in df['state']]
-    df['date'] = pd.to_datetime(df['date'], format='%Y/%m/%d')
-    df = df.sort_values(by=['state', 'date'])
+def convert_date(df, date_col='date', date_format='%Y/%m/%d'):
+    # replace the old date column with a new data column
+    df[date_col] = pd.to_datetime(df[date_col], format=date_format)
     return df
+
+
+@st.cache_data(ttl=24 * 3600)
+def sort_df(df, cols):
+    # cols: a list of column names
+    df = df.sort_values(by=cols)
+    return df
+
 
 
 @st.cache_data(ttl=24 * 3600)
@@ -74,10 +87,23 @@ def read_json(file_name):
 
 @st.cache_data(ttl=24 * 3600)
 def read_cdc_api(client_args):
-    na_values = ["NA", "Missing", "Unknown"]
     client = Socrata("data.cdc.gov", None)
-    results = client.get(**client_args)
+    dataset_id = client_args["dataset_identifier"]
+    limit = client_args["limit"]
+    args = list(client_args.keys())[2:]
+    where_clause = ""
+    for i in range(len(args)):
+        arg = args[i]
+        values = list(client_args[arg])
+        s = ", ".join(f"'{v}'" for v in values)
+        if i != len(args)-1:
+            where_clause += f"{arg} IN ({s}) AND "
+        else:
+            where_clause += f"{arg} IN ({s})"
+    results = client.get(dataset_id, where=where_clause, limit=limit)
     df = pd.DataFrame.from_records(results)
+    # handle NA values
+    na_values = ["NA", "Missing", "Unknown"]
     df = df.replace(na_values, np.nan)
     return df
 

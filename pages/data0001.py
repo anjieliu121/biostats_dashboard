@@ -1,6 +1,6 @@
 from st_pages import add_page_title
 import pandas as pd
-from utils.css_utils import selection_box, multiselect_css
+from utils.css_utils import selection_box, multiselection_box
 from utils.data_io import read_df, read_cols, subset_df, download_filtered_data, read_json
 from utils.data_visual import plot_header, plot_timeseries, plot_lines, plot_bar, display_filtered_data, display_filter_cols, display_dataset
 
@@ -44,7 +44,7 @@ df = subset_df(df, "Geography", geography_select)
 # age options
 age = list(df['Age'].unique())
 age.insert(0, "All Age Groups")
-ages_select = multiselect_css('Select 1 or more age groups', age, age[0])
+ages_select = multiselection_box('Select 1 or more age groups', age, age[0])
 if "All Age Groups" not in ages_select:
     df = subset_df(df, "Age", *ages_select)
 
@@ -58,7 +58,7 @@ if graph_select == "Timeseries Plot":
     fig = plot_timeseries(df, 'Week_Ending_Sat', var_select, title, "Age")
 elif graph_select == "Multi-Line Plot":
     # select which variables to plot
-    vars_select = multiselect_css("Select 1 or more variables", variables, variables[0])
+    vars_select = multiselection_box("Select 1 or more variables", variables, variables[0])
     if "All Age Groups" in ages_select:
         ages_select = list(df['Age'].unique())
     fig = plot_lines(df, "Week_Ending_Sat", vars_select, title, "Age", ages_select)

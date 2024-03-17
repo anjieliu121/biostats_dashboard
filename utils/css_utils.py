@@ -7,6 +7,20 @@ download_button_css = """ <style>
                             }
                           </style>"""
 
+select_box_css = """ <style>
+                            .stSelectbox:first-of-type > div[data-baseweb=\"select\"] > div {
+                                background-color: #bf5700;
+                                color:#FFFFFF;
+                                padding: 10px;
+                            }
+                        </style>"""
+
+multiselection_box_css = """ <style>
+                                span[data-baseweb="tag"] {
+                                    background-color: #bf5700 !important;
+                                    color:#FFFFFF; padding: 10px;
+                                }
+                             </style> """
 def display_download_button(file_name, date=None):
     st.markdown(download_button_css, unsafe_allow_html=True)
 
@@ -25,11 +39,17 @@ def display_download_button(file_name, date=None):
 
 
 def selection_box(txt, lst, index):  # bf5700
-    css = "<style>.stSelectbox:first-of-type > div[data-baseweb=\"select\"] > div {" + \
-          "background-color: #bf5700;" + \
-          "color:#FFFFFF; padding: 10px;}</style>"
-    st.markdown(css, unsafe_allow_html=True)
+    st.markdown(select_box_css, unsafe_allow_html=True)
     box = st.selectbox(txt, lst, index=index)
+    return box
+
+
+def multiselection_box(txt, lst, *default):
+    st.markdown(multiselection_box_css, unsafe_allow_html=True)
+    if len(default) > 0:
+        box = st.multiselect(txt, lst, default=list(default))
+    else:
+        box = st.multiselect(txt, lst, default=None)
     return box
 
 
@@ -39,17 +59,3 @@ def markdown_background(txt):
                 unsafe_allow_html=True)
 
 
-def multiselect_css(txt, lst, *default):
-    st.markdown(
-        """
-    <style>
-    span[data-baseweb="tag"] {
-      background-color: #bf5700 !important;
-      color:#FFFFFF; padding: 10px;
-    }
-    </style>
-    """,
-        unsafe_allow_html=True,
-    )
-    box = st.multiselect(txt, lst, default=list(default))
-    return box

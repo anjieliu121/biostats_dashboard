@@ -1,7 +1,6 @@
 import io
 import streamlit as st
 
-
 def download_fig(fig, title):
     st.warning('Save your work!', icon="⭐")
     buffer = io.StringIO()
