@@ -6,12 +6,11 @@ from utils.text_utils import display_data_description, display_source
 # for plots
 import plotly.express as px
 import pandas as pd
+
 from utils.css_utils import selection_box, markdown_background, multiselection_box
 from utils.data_visual import plot_header, display_plotly_chart, display_filtered_data
-
 from utils.data_io import read_json, read_df, read_cols, subset_df, subset_df_date, convert_state_abbr_full, convert_date, sort_df, convert_df_csv, download_filtered_data
 from utils.plot_utils import download_fig
-
 from utils.data_visual import display_dataset, display_filter_cols
 
 import plotly.io as pio

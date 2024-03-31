@@ -1,10 +1,12 @@
 import streamlit as st
 import numpy as np
 import plotly.express as px
+import plotly.io as pio
+from collections import Counter
+
 from utils.constants import fig_height
 from utils.css_utils import markdown_background, selection_box
 from utils.data_io import read_df, read_cols, subset_df_col
-import plotly.io as pio
 
 
 
@@ -22,8 +24,8 @@ def display_filter_cols(df, cols, sample_search_text):
     st.header("Filter Dataset by Column Names")
     st.warning("Filtered columns will not affect the column options in the visualization below.", icon="⚠️")
     search_phrases = st.text_input('I want column names that contain phrases like ... (separate each word by a comma)', sample_search_text)
-    search_list = search_phrases.split(", ")
-    cols_select = [col for col in cols if any(word in col for word in search_list)]
+    search_list = [i.strip().lower() for i in search_phrases.split(",")]
+    cols_select = [col for col in cols if any(word in col.lower() for word in search_list)]
     df = subset_df_col(df, cols_select)
     st.dataframe(df, use_container_width=True, height=265)
 
@@ -38,11 +40,12 @@ def display_plotly_chart(fig, fig_height=fig_height):
 @st.cache_data(ttl=24 * 3600)
 def plot_bar_univariate(df, option):
     pio.templates.default = "plotly"
-    unique_values = df[option].unique()
-    unique_values = [x for x in unique_values if x == x]
-    unique_values.sort()
-    markdown_background(f"Unique Values: {unique_values}")
-    fig = px.bar(df, x=option)
+    category_counts = Counter(df[option])
+    # Sort category_counts by count in descending order
+    sorted_category_counts = sorted(category_counts.items(), key=lambda item: item[1], reverse=True)
+    # Unzip the sorted list into two lists: categories and their counts
+    unique_values, counts = zip(*sorted_category_counts)
+    fig = px.bar(x=unique_values, y=counts, labels={'x': option, 'y': 'Count'})
     fig.update_layout(
         xaxis=dict(
             type='category',
@@ -53,7 +56,7 @@ def plot_bar_univariate(df, option):
         ),
     )
     display_plotly_chart(fig)
-
+    markdown_background(f"Unique Value Count: {sorted_category_counts}")
 
 
 @st.cache_data(ttl=24 * 3600)
@@ -120,15 +123,17 @@ def plot_bar(df, x, y, title):
     return fig
 
 
-def display_dataset(df, notes=None):
-    st.header("Quick Glance at the Raw Data")
+def display_dataset(df, notes=None, header=True):
+    if header:
+        st.header("Quick Glance at the Raw Data")
     st.dataframe(df, use_container_width=True, height=265)
     if notes is not None:
         st.caption(f"Note: {notes}")
 
 
-def display_filtered_data(df):
-    st.header("Quick Glance at the Filtered Data")
+def display_filtered_data(df, header=True):
+    if header:
+        st.header("Quick Glance at the Filtered Data")
     st.dataframe(df, use_container_width=True)
 
 
