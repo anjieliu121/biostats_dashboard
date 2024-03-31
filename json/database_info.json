@@ -1,7 +1,7 @@
 {
   "dataset_count": 3,
   "sections": {
-    "COVID-19": ["data0000", "data0002", "data0003"],
+    "COVID-19": ["data0000", "data0002", "data0003", "data0004"],
     "Flu": ["data0001"]
   }
 }
