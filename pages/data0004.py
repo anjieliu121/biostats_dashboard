@@ -49,21 +49,22 @@ df = convert_date(df, date_col='Week_ending', date_format="%m/%d/%Y %I:%M:%S %p"
 #                                               bar chart                                                              #
 ########################################################################################################################
 if graph_select == graph_options[0]:
+    # main filter by indicator_category_label
+    indicator_option = selection_box('Select Indicator Category Label', df['indicator_category_label'].unique(),
+                                     index=0)
+    df_sub = subset_df(df, 'indicator_category_label', indicator_option)
     # select a filter
-    filters = ['NONE (Entire Dataset)', 'Geographic Level', 'Geographic Name', 'Demographic Level', 'Demographic Name', 'indicator_label', 'indicator_category_label', 'Month_Week', 'Week_ending', 'suppression_flag']
+    filters = ['NONE (Entire Dataset)', 'Geographic Level', 'Geographic Name', 'Demographic Level', 'Demographic Name',
+               'indicator_label', 'Week_ending', 'suppression_flag']
     filter_option = selection_box('Select Filter', filters, index=0)
     if filter_option != filters[0]:
         # select filter categories
         c = columns[filter_option]['values']
         c_options = multiselection_box('Select Categories of Interest', c, c[0])
-        df_sub = subset_df(df, filter_option, *c_options)
-    else:
-        df_sub = df.copy()
+        df_sub = subset_df(df_sub, filter_option, *c_options)
 
     # select a variable
-    cols_except_filter = cols
-    if filter_option != filters[0]:
-        cols_except_filter.remove(filter_option)
+    cols_except_filter = ['Estimate']
     option = selection_box('Select Variable', cols_except_filter, index=0)
 
     if filter_option != filters[0]:
@@ -71,7 +72,7 @@ if graph_select == graph_options[0]:
             st.warning("Please select something to plot.")
         else:
             if option in numeric:
-                fig = px.histogram(df, x=option, color=filter_option)
+                fig = px.histogram(df_sub, x=option, color=filter_option)
                 display_plotly_chart(fig)
             else:
                 agg_df = df_sub.groupby([option, filter_option]).size().reset_index(name="count")
@@ -81,10 +82,10 @@ if graph_select == graph_options[0]:
     else:
         # plot
         if option in numeric:
-            fig = px.histogram(df, option)
+            fig = px.histogram(df_sub, option)
             display_plotly_chart(fig)
         else:
-            plot_bar_univariate(df, option)
+            plot_bar_univariate(df_sub, option)
 
 # show people who upload the data
 upload_users = page_info['upload_users']

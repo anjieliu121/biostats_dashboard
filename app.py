@@ -1,16 +1,19 @@
 import streamlit as st
 from st_pages import Page, Section, add_page_title, show_pages
-from utils.constants import page_title, web_description
+import streamlit.components.v1 as components
+from PIL import Image
+import webbrowser
 from utils.data_io import read_json
 from utils.page_setup import add_sidebar_image
 
-# initiate a list of pages
-pages = [Page("app.py", page_title)]
 
 # load database information
 database_info = read_json("database_info")
 dataset_cnt = database_info["dataset_count"]
 sections = database_info["sections"]
+
+# initiate a list of pages
+pages = [Page("app.py", database_info["page_title"])]
 
 # add each page to the list of pages
 for section in sections:
@@ -26,12 +29,6 @@ for section in sections:
             icon = ":jigsaw:"
         pages.append(Page(f"pages/{page}.py", page_info["page_name"], icon=icon))
 
-# unclassified section
-
-# Page("pages/rsv_2.py", rsv_page_names["rsv_2"], icon=":jigsaw:"),
-# You can also pass in_section=False to a page to make it un-indented
-# Page("example_app/example_five.py", "Example Five", "🧰", in_section=False),
-
 # display all pages
 show_pages(pages)
 add_page_title(layout="wide")
@@ -42,10 +39,27 @@ add_sidebar_image()
 ########################################################################################################################
 #                                               Introductory Page                                                      #
 ########################################################################################################################
-f"## {web_description}"
+col1, col2 = st.columns([0.15, 0.85])
+with col1:
+    # logo
+    st.image('images/meyerslab_logo_circle.png')
+with col2:
+    # description
+    f"## {database_info["web_description"]}"
+
 st.divider()
 
 # emoji keys
 st.header("What does the emoji before each page mean?")
 st.markdown(":telescope: real-world data")
 st.markdown(":hammer_and_wrench: simulated data")
+st.divider()
+
+
+# contact info
+st.header("Contact Us")
+# embedded meyers lab
+iframe_src = "http://www.bio.utexas.edu/research/meyers/index.html"
+components.iframe(iframe_src, height=400, scrolling=True)
+# linkedin link
+st.link_button(f"Contact Web Creator 👈", "https://www.linkedin.com/in/anjie-liu-a73574253/")

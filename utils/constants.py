@@ -1,11 +1,7 @@
 ########################################################################################################################
 #                                              starter page info                                                       #
 ########################################################################################################################
-# web page title
-page_title = "Meyers Database"
-# webpage description
-web_description = "Meyers Database portal provides description and interactive visualization of data used in \
-                   scenario hub, forecast or other scientific projects."
+
 
 
 ########################################################################################################################

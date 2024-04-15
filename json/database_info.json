@@ -3,5 +3,7 @@
   "sections": {
     "COVID-19": ["data0000", "data0002", "data0003", "data0004"],
     "Flu": ["data0001"]
-  }
+  },
+  "page_title": "Meyers Database",
+  "web_description": "The Meyers Database portal offers descriptions and interactive visualizations of data utilized in scenario hubs, forecasts, or other scientific projects.\nIts primary function is to facilitate quick visualizations to aid in comprehending extensive datasets."
 }
