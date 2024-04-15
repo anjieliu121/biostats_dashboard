@@ -62,5 +62,9 @@
     "suppression_flag": {
       "description": "", "values": ["0", "1"]
     }
-  }
+  },
+  "comments": [
+    "for each week in each state, what is the estimate? x=week_ending, y=estimate",
+    "add scatter plot"
+  ]
 }

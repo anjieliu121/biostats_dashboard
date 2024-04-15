@@ -45,7 +45,7 @@ with col1:
     st.image('images/meyerslab_logo_circle.png')
 with col2:
     # description
-    f"## {database_info["web_description"]}"
+    st.header(database_info["web_description"])
 
 st.divider()
 
