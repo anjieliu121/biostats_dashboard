@@ -3,5 +3,6 @@
 *.pyo
 __pycache__/
 utils/__pycache__/
+utils/__pycache__/data_visual.cpython-312.pyc
 .idea/
 data/.DS_Store

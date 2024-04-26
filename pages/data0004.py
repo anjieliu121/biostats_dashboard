@@ -7,7 +7,7 @@ pio.templates.default = "plotly"
 from utils.page_setup import add_sidebar_image, display_contributors
 from utils.css_utils import display_download_button, selection_box, markdown_background, multiselection_box
 from utils.text_utils import display_data_description, display_source
-from utils.data_visual import display_dataset, display_filter_cols, plot_header, display_plotly_chart, display_filtered_data, plot_bar_univariate
+from utils.data_visual import display_dataset, display_filter_cols, plot_header, display_plotly_chart, display_filtered_data, plot_bar_univariate, plot_timeseries_line
 from utils.data_io import read_json, read_df, read_cols, subset_df, subset_df_date, convert_state_abbr_full, convert_date, sort_df, convert_df_csv, download_filtered_data
 from utils.plot_utils import download_fig
 
@@ -40,19 +40,29 @@ display_filter_cols(df, cols, "name, indicator")
 ########################################################################################################################
 #                                               plots set up                                                           #
 ########################################################################################################################
-graph_options = ["Colored Bar Chart by Categories"]
+graph_options = ["Estimates Over Time", "Colored Bar Chart by Categories"]
 graph_select = plot_header(graph_options)
 
 # transform data
 df = convert_date(df, date_col='Week_ending', date_format="%m/%d/%Y %I:%M:%S %p")
+# main filter by indicator_category_label
+indicator_option = selection_box('Select Indicator Category Label', df['indicator_category_label'].unique(), index=0)
+df_sub = subset_df(df, 'indicator_category_label', indicator_option)
 ########################################################################################################################
 #                                               bar chart                                                              #
 ########################################################################################################################
 if graph_select == graph_options[0]:
-    # main filter by indicator_category_label
-    indicator_option = selection_box('Select Indicator Category Label', df['indicator_category_label'].unique(),
-                                     index=0)
-    df_sub = subset_df(df, 'indicator_category_label', indicator_option)
+    # main filter by state
+    state_option = selection_box('Select Geographic Name', df['Geographic Name'].unique(), index=0)
+    df_sub = subset_df(df_sub, 'Geographic Name', state_option)
+    # sort df_sub by week_ending
+    df_sub = sort_df(df_sub, ['Week_ending'])
+    plot_timeseries_line(df_sub, x='Week_ending', y="Estimate", title="Estimates Over Time")
+    display_filtered_data(df_sub, False)
+########################################################################################################################
+#                                               bar chart                                                              #
+########################################################################################################################
+if graph_select == graph_options[1]:
     # select a filter
     filters = ['NONE (Entire Dataset)', 'Geographic Level', 'Geographic Name', 'Demographic Level', 'Demographic Name',
                'indicator_label', 'Week_ending', 'suppression_flag']

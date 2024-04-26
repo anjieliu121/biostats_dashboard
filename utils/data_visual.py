@@ -60,10 +60,27 @@ def plot_bar_univariate(df, option):
 
 
 @st.cache_data(ttl=24 * 3600)
-def plot_timeseries(df, x, var_select, title, color):
+def plot_timeseries(df, x, var_select, title, color=None):
     pio.templates.default = "plotly"
     if color:
         fig = px.scatter(df, x=x, y=var_select, color=color, title=title)
+
+    fig.update_layout(
+        title={
+            'text': title,
+            'y': 0.95,
+            'x': 0.35,
+            'xanchor': 'center',
+            'yanchor': 'top'},
+    )
+    fig = display_plotly_chart(fig)
+    return fig
+
+
+@st.cache_data(ttl=24 * 3600)
+def plot_timeseries_line(df, x, y, title):
+    pio.templates.default = "plotly"
+    fig = px.line(df, x=x, y=y, title=title)
     fig.update_layout(
         title={
             'text': title,
